@@ -17,6 +17,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -77,6 +78,11 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
+    }
+
+    @OnClick(R.id.textView)
+    public void textClick(){
+        ListActivity.startActivity(getApplicationContext());
     }
 
 }
