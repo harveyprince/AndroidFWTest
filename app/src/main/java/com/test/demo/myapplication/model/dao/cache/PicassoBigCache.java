@@ -1,4 +1,4 @@
-package com.test.demo.myapplication.model;
+package com.test.demo.myapplication.model.dao.cache;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
