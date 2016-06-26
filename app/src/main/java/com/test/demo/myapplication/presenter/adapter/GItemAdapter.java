@@ -29,13 +29,14 @@ public class GItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     public class GItemViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.cardview)
         public CardView cardView;
-        public TextView textView;
+        @BindView(R.id.textview)
+        public TextView textview;
 
         public GItemViewHolder(CardView view) {
             super(view);
-            this.cardView = view;
-            this.textView = (TextView) view.findViewById(R.id.textview);
+            ButterKnife.bind(this, view);
 
         }
     }
@@ -51,7 +52,7 @@ public class GItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         GItemViewHolder vh = (GItemViewHolder) holder;
         Repo po = list.get(position);
-        vh.textView.setText(po.getFull_name());
+        vh.textview.setText(po.getFull_name());
     }
 
     @Override
