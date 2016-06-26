@@ -5,9 +5,6 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.squareup.okhttp.ResponseBody;
 import com.test.demo.myapplication.R;
 import com.test.demo.myapplication.model.dao.cache.PicassoBigCache;
 import com.test.demo.myapplication.model.entity.Repo;
@@ -34,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.imageView)
     ImageView imageView;
 
-    @BindView(R.id.textView)
+    @BindView(R.id.v2)
     TextView textView;
 
     @Override
@@ -84,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    @OnClick(R.id.textView)
+    @OnClick(R.id.v2)
     public void textClick(){
         ListActivity.startActivity(getApplicationContext());
     }
