@@ -12,12 +12,15 @@ import com.test.demo.myapplication.R;
 import com.test.demo.myapplication.model.dao.cache.PicassoBigCache;
 import com.test.demo.myapplication.model.entity.Repo;
 import com.test.demo.myapplication.model.service.GithubService;
+import com.test.demo.myapplication.presenter.dagger.CoffeeApp;
+import com.test.demo.myapplication.presenter.dagger.DripCoffeeModule;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import dagger.ObjectGraph;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -78,11 +81,20 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
+
     }
 
     @OnClick(R.id.textView)
     public void textClick(){
         ListActivity.startActivity(getApplicationContext());
+    }
+
+    @OnClick(R.id.imageView)
+    public void imageClick() {
+        System.out.println("image clicked");
+        ObjectGraph objectGraph = ObjectGraph.create(new DripCoffeeModule());
+        CoffeeApp coffeeApp = objectGraph.get(CoffeeApp.class);
+        coffeeApp.run();
     }
 
 }

@@ -18,6 +18,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    packagingOptions {
+        exclude 'META-INF/services/javax.annotation.processing.Processor'
+    }
 }
 
 dependencies {
@@ -39,4 +42,6 @@ dependencies {
     compile group: 'com.google.code.gson', name: 'gson', version: '2.7'
     compile 'com.tbruyelle.rxpermissions:rxpermissions:0.7.0@aar'
     compile 'com.canyinghao:canrefresh:1.0.1'
+    compile 'com.squareup.dagger:dagger:1.2.5'
+    compile 'com.squareup.dagger:dagger-compiler:1.2.5'
 }
