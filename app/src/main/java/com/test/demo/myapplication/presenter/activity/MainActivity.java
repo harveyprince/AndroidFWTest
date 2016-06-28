@@ -8,7 +8,9 @@ import android.widget.TextView;
 import com.test.demo.myapplication.R;
 import com.test.demo.myapplication.model.dao.cache.PicassoBigCache;
 import com.test.demo.myapplication.model.entity.Repo;
+import com.test.demo.myapplication.model.entity.SignInResult;
 import com.test.demo.myapplication.model.service.GithubService;
+import com.test.demo.myapplication.model.service.TableService;
 import com.test.demo.myapplication.presenter.dagger.demo.CoffeeApp;
 import com.test.demo.myapplication.presenter.dagger.demo.DripCoffeeModule;
 import com.test.demo.myapplication.presenter.helper.RetrofitHelper;
@@ -46,9 +48,30 @@ public class MainActivity extends AppCompatActivity {
 
         Retrofit retrofit = RetrofitHelper.build(this);
 
-        GithubService service = retrofit.create(GithubService.class);
+//        GithubService service = retrofit.create(GithubService.class);
 
-        service.listRepos("harveyprince")
+        TableService tservice = retrofit.create(TableService.class);
+        
+        tservice.signIn("948841233@qq.com", "123")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnError(new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        throwable.printStackTrace();
+                        System.out.println("error occured");
+                    }
+                })
+                .subscribe(new Action1<SignInResult>() {
+                       @Override
+                       public void call(SignInResult signInResult) {
+                           System.out.println("user_id:"+signInResult.getUser_id());
+                       }
+                   }
+                );
+
+
+        /*service.listRepos("harveyprince")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(new Action1<Throwable>() {
@@ -73,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onNext(List<Repo> jsonObject) {
                         textView.setText(jsonObject.toString());
                     }
-                });
+                });*/
 
 
     }
