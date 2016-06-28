@@ -5,16 +5,13 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.franmontiel.persistentcookiejar.ClearableCookieJar;
-import com.franmontiel.persistentcookiejar.PersistentCookieJar;
-import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
-import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor;
 import com.test.demo.myapplication.R;
 import com.test.demo.myapplication.model.dao.cache.PicassoBigCache;
 import com.test.demo.myapplication.model.entity.Repo;
 import com.test.demo.myapplication.model.service.GithubService;
-import com.test.demo.myapplication.presenter.dagger.CoffeeApp;
-import com.test.demo.myapplication.presenter.dagger.DripCoffeeModule;
+import com.test.demo.myapplication.presenter.dagger.demo.CoffeeApp;
+import com.test.demo.myapplication.presenter.dagger.demo.DripCoffeeModule;
+import com.test.demo.myapplication.presenter.helper.RetrofitHelper;
 
 import java.util.List;
 
@@ -22,10 +19,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import dagger.ObjectGraph;
-import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
@@ -49,17 +43,8 @@ public class MainActivity extends AppCompatActivity {
                 .load("http://i.imgur.com/DvpvklR.png")
                 .into(imageView);
 
-        ClearableCookieJar cookieJar =
-                new PersistentCookieJar(new SetCookieCache(), new SharedPrefsCookiePersistor(this));
 
-        OkHttpClient client = new OkHttpClient().newBuilder().cookieJar(cookieJar).build();
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://api.github.com")
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .client(client)
-                .build();
+        Retrofit retrofit = RetrofitHelper.build(this);
 
         GithubService service = retrofit.create(GithubService.class);
 
@@ -69,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
                 .doOnError(new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
+                        throwable.printStackTrace();
                         System.out.println("error occured");
                     }
                 })

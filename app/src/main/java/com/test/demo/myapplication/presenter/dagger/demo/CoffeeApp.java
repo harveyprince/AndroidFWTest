@@ -1,8 +1,6 @@
-package com.test.demo.myapplication.presenter.dagger;
+package com.test.demo.myapplication.presenter.dagger.demo;
 
 import javax.inject.Inject;
-
-import dagger.ObjectGraph;
 
 /**
  * Created by harveyprince on 16/6/26.

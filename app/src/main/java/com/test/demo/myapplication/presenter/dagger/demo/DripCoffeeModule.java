@@ -1,4 +1,4 @@
-package com.test.demo.myapplication.presenter.dagger;
+package com.test.demo.myapplication.presenter.dagger.demo;
 
 import dagger.Module;
 import dagger.Provides;
