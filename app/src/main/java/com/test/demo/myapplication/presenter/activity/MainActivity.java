@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.test.demo.myapplication.R;
 import com.test.demo.myapplication.model.dao.cache.PicassoBigCache;
+import com.test.demo.myapplication.model.entity.Account;
 import com.test.demo.myapplication.model.entity.Repo;
 import com.test.demo.myapplication.model.entity.SignInResult;
 import com.test.demo.myapplication.model.service.GithubService;
@@ -51,8 +52,11 @@ public class MainActivity extends AppCompatActivity {
 //        GithubService service = retrofit.create(GithubService.class);
 
         TableService tservice = retrofit.create(TableService.class);
-        
-        tservice.signIn("948841233@qq.com", "123")
+
+        Account account = new Account();
+        account.setEmail("948841233@qq.com");
+        account.setPassword("123");
+        tservice.signIn(account)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(new Action1<Throwable>() {

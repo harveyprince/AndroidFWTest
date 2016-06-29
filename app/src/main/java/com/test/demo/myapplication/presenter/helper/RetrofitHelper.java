@@ -40,6 +40,7 @@ public class RetrofitHelper {
                     String requestLog = String.format("Sending request %s on %s%n%s",
                             request.url(), chain.connection(), request.headers());
 
+
                     if(request.method().compareToIgnoreCase("post")==0){
                         requestLog ="\n"+requestLog+"\n"+bodyToString(request);
                     }
@@ -62,7 +63,7 @@ public class RetrofitHelper {
             }).build();
             retrofit = new Retrofit.Builder()
                     .baseUrl("http://115.28.78.53/")
-                    .addConverterFactory(GsonConverterFactory.create())
+                    .addConverterFactory(TGsonConverterFactory.create())
                     .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                     .client(client)
                     .build();
