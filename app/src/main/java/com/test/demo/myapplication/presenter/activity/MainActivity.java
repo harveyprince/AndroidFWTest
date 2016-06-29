@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
         Account account = new Account();
         account.setEmail("948841233@qq.com");
         account.setPassword("123");
+
         tservice.signIn(account)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
