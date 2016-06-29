@@ -59,7 +59,6 @@ final class TGsonRequestBodyConverter<T> implements Converter<T, RequestBody> {
                 }
                 String key = keys.next();
                 t_content += key + "=" + URLEncoder.encode(obj.getString(key), "UTF-8");
-                System.out.println(t_content);
             }
         } catch (JSONException e) {
             e.printStackTrace();
