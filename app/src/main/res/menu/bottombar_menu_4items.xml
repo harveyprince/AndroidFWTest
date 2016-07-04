@@ -19,9 +19,5 @@
         android:color="@android:color/holo_orange_dark"
         android:icon="@mipmap/whatshot_black"
         android:title="Mail" />
-    <item
-        android:id="@+id/action4"
-        android:color="#FF5252"
-        android:icon="@mipmap/whatshot_black"
-        android:title="List" />
+
 </menu>

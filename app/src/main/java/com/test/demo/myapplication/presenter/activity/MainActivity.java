@@ -1,13 +1,16 @@
 package com.test.demo.myapplication.presenter.activity;
 
+import android.databinding.DataBindingUtil;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.test.demo.myapplication.R;
+import com.test.demo.myapplication.databinding.ActivityMainBinding;
 import com.test.demo.myapplication.model.dao.cache.PicassoBigCache;
 import com.test.demo.myapplication.model.entity.Account;
+import com.test.demo.myapplication.model.entity.Person;
 import com.test.demo.myapplication.model.entity.Repo;
 import com.test.demo.myapplication.model.entity.SignInResult;
 import com.test.demo.myapplication.model.service.GithubService;
@@ -39,8 +42,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+//        setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        Person person = new Person();
+        person.setName("harveyprince");
+        person.setAge(20);
+        binding.setUser(person);
 
         PicassoBigCache.INSTANCE.getPicassoBigCache(getApplicationContext())
                 .load("http://i.imgur.com/DvpvklR.png")

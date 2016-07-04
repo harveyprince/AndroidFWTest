@@ -21,6 +21,9 @@ android {
     packagingOptions {
         exclude 'META-INF/services/javax.annotation.processing.Processor'
     }
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {
