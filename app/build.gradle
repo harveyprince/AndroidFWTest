@@ -51,4 +51,6 @@ dependencies {
     compile 'com.squareup.dagger:dagger:1.2.5'
     compile 'com.squareup.dagger:dagger-compiler:1.2.5'
     compile 'it.sephiroth.android.library.bottomnavigation:bottom-navigation:1.0.7'
+    compile 'me.tatarka.bindingcollectionadapter:bindingcollectionadapter:1.2.0'
+    compile 'me.tatarka.bindingcollectionadapter:bindingcollectionadapter-recyclerview:1.2.0'
 }

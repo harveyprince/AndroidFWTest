@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 //        setContentView(R.layout.activity_main);
+        
         ButterKnife.bind(this);
         Person person = new Person();
         person.setName("harveyprince");

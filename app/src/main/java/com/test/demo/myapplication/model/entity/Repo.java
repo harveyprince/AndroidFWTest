@@ -25,7 +25,7 @@ public class Repo {
     public static List<Repo> getList(){
         List<Repo> list = new ArrayList<>();
         Repo rp = new Repo();
-        rp.setFull_name("hhhhh");
+        rp.setFull_name("hhhhh123123");
         list.add(rp);
         list.add(rp);
         list.add(rp);

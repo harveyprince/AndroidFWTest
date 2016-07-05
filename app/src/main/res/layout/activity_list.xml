@@ -1,36 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.test.demo.myapplication.presenter.activity.ListActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.canyinghao.canrefresh.CanRefreshLayout
+    <data>
+        <variable name="viewModel" type="com.test.demo.myapplication.model.entity.ViewModel"/>
+        <import type="me.tatarka.bindingcollectionadapter.LayoutManagers" />
+    </data>
+
+    <RelativeLayout
+
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:can_friction="1.0"
-        app:can_style_down="lower"
-        app:can_style_up="mid"
-        android:id="@+id/refresh">
+        tools:context="com.test.demo.myapplication.presenter.activity.ListActivity">
 
-        <android.support.v7.widget.RecyclerView
+        <com.canyinghao.canrefresh.CanRefreshLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/can_content_view">
+            app:can_friction="1.0"
+            app:can_style_down="lower"
+            app:can_style_up="mid"
+            android:id="@+id/refresh">
 
-        </android.support.v7.widget.RecyclerView>
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layoutManager="@{LayoutManagers.linear()}"
+                app:items="@{viewModel.items}"
+                app:itemView="@{viewModel.itemView}"
+                android:id="@+id/can_content_view">
 
-        <com.canyinghao.canrefresh.classic.ClassicRefreshView
-            android:id="@id/can_refresh_header"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-        <com.canyinghao.canrefresh.classic.ClassicRefreshView
-            android:id="@id/can_refresh_footer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            </android.support.v7.widget.RecyclerView>
 
-    </com.canyinghao.canrefresh.CanRefreshLayout>
+            <com.canyinghao.canrefresh.classic.ClassicRefreshView
+                android:id="@id/can_refresh_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <com.canyinghao.canrefresh.classic.ClassicRefreshView
+                android:id="@id/can_refresh_footer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </com.canyinghao.canrefresh.CanRefreshLayout>
 
 
-</RelativeLayout>
+    </RelativeLayout>
+</layout>

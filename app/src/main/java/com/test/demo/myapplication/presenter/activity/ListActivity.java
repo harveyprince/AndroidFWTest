@@ -2,6 +2,7 @@ package com.test.demo.myapplication.presenter.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,7 +10,10 @@ import android.support.v7.widget.RecyclerView;
 
 import com.canyinghao.canrefresh.CanRefreshLayout;
 import com.test.demo.myapplication.R;
+import com.test.demo.myapplication.databinding.ActivityListBinding;
+import com.test.demo.myapplication.databinding.ActivityMainBinding;
 import com.test.demo.myapplication.model.entity.Repo;
+import com.test.demo.myapplication.model.entity.ViewModel;
 import com.test.demo.myapplication.model.service.GithubService;
 import com.test.demo.myapplication.presenter.adapter.GItemAdapter;
 
@@ -18,13 +22,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
-import rx.schedulers.Schedulers;
 
 public class ListActivity extends AppCompatActivity implements CanRefreshLayout.OnRefreshListener, CanRefreshLayout.OnLoadMoreListener {
 
@@ -32,30 +29,32 @@ public class ListActivity extends AppCompatActivity implements CanRefreshLayout.
     RecyclerView recyclerView;
     @BindView(R.id.refresh)
     CanRefreshLayout refresh;
-    final List<Repo> list = new ArrayList<>();
-    GItemAdapter adapter;
+    private ViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list);
+        ActivityListBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_list);
+
+//        setContentView(R.layout.activity_list);
+
         ButterKnife.bind(this);
+
+        viewModel = new ViewModel();
+        binding.setViewModel(viewModel);
 
         refresh.setOnLoadMoreListener(this);
         refresh.setOnRefreshListener(this);
 
         refresh.setStyle(0, 0);
 
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
 
-        recyclerView.setLayoutManager(mLayoutManager);
+        viewModel.items.addAll(Repo.getList());
 
-        list.addAll(Repo.getList());
+//        adapter = new GItemAdapter(getApplicationContext(), list);
+//        recyclerView.setAdapter(adapter);
 
-        adapter = new GItemAdapter(getApplicationContext(), list);
-        recyclerView.setAdapter(adapter);
-
-        adapter.notifyDataSetChanged();
+//        adapter.notifyDataSetChanged();
 
     }
 
@@ -64,8 +63,9 @@ public class ListActivity extends AppCompatActivity implements CanRefreshLayout.
         refresh.postDelayed(new Runnable() {
             @Override
             public void run() {
-                list.addAll(Repo.getList());
-                adapter.notifyDataSetChanged();
+//                list.addAll(Repo.getList());
+                viewModel.items.addAll(Repo.getList());
+//                adapter.notifyDataSetChanged();
 
                 refresh.loadMoreComplete();
             }
@@ -77,9 +77,11 @@ public class ListActivity extends AppCompatActivity implements CanRefreshLayout.
         refresh.postDelayed(new Runnable() {
             @Override
             public void run() {
-                list.clear();
-                list.addAll(Repo.getList());
-                adapter.notifyDataSetChanged();
+                /*list.clear();
+                list.addAll(Repo.getList());*/
+                viewModel.items.clear();
+                viewModel.items.addAll(Repo.getList());
+//                adapter.notifyDataSetChanged();
                 refresh.refreshComplete();
             }
         }, 1000);
