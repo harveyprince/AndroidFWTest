@@ -3,6 +3,8 @@ package com.test.demo.myapplication.presenter.activity;
 import android.databinding.DataBindingUtil;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -44,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 //        setContentView(R.layout.activity_main);
-        
+
         ButterKnife.bind(this);
         Person person = new Person();
         person.setName("harveyprince");
@@ -122,10 +124,14 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.imageView)
     public void imageClick() {
-        System.out.println("image clicked");
+        /*System.out.println("image clicked");
         ObjectGraph objectGraph = ObjectGraph.create(new DripCoffeeModule());
         CoffeeApp coffeeApp = objectGraph.get(CoffeeApp.class);
-        coffeeApp.run();
+        coffeeApp.run();*/
+        Animation anim = AnimationUtils.loadAnimation(getApplicationContext(),
+                R.anim.fade_in);
+        imageView.startAnimation(anim);
+        System.out.println("fade_in anim");
     }
 
 }
