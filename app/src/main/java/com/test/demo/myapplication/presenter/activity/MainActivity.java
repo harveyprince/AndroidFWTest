@@ -1,8 +1,12 @@
 package com.test.demo.myapplication.presenter.activity;
 
 import android.databinding.DataBindingUtil;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.DragEvent;
+import android.view.MotionEvent;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
@@ -32,6 +36,7 @@ import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;
+import android.widget.RelativeLayout.LayoutParams;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -40,6 +45,11 @@ public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.v2)
     TextView textView;
+
+    int windowwidth;
+    int windowheight;
+
+    private LayoutParams layoutParams ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +96,51 @@ public class MainActivity extends AppCompatActivity {
                    }
                 );
 
+        windowwidth = getWindowManager().getDefaultDisplay().getWidth();
+        windowheight = getWindowManager().getDefaultDisplay().getHeight();
+
+        imageView.setOnTouchListener(new View.OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                int x1=0,y1=0;
+                int x2,y2;
+                int x3 = 0,y3 = 0;
+                LayoutParams layoutParams = (LayoutParams) imageView.getLayoutParams();
+                switch(event.getAction())
+                {
+                    case MotionEvent.ACTION_DOWN:
+                        System.out.println("down");
+                        x1 = (int) event.getX();
+                        y1 = (int) event.getY();
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        System.out.println("move");
+                        x2 = (int)event.getX();
+                        y2 = (int)event.getY();
+                        System.out.println("x2:"+x1+"|y2:"+y1);
+                        /*int x_cord = (int)event.getRawX();
+                        int y_cord = (int)event.getRawY();*/
+
+                        /*if(x_cord>windowwidth){x_cord=windowwidth;}
+                        if(y_cord>windowheight){y_cord=windowheight;}*/
+
+
+                        /*layoutParams.leftMargin = x_cord - (int)event.getX();
+                        layoutParams.topMargin = y_cord - (int)event.getY();*/
+
+                        layoutParams.leftMargin = layoutParams.leftMargin + x2 - x1;
+                        layoutParams.topMargin = layoutParams.topMargin + y2 - y1;
+
+                        System.out.println("x:"+layoutParams.leftMargin+"|y:"+layoutParams.topMargin);
+                        imageView.setLayoutParams(layoutParams);
+                        break;
+                    default:
+                        break;
+                }
+                return true;
+            }
+        });
 
         /*service.listRepos("harveyprince")
                 .subscribeOn(Schedulers.io())
